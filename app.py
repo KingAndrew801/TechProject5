@@ -5,8 +5,12 @@ from models import app, db
 def index():
     return render_template('index.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 @app.route('/new')
-def newproj():
+def addproj():
     if request.form:
         pass
     return render_template('projectform.html')
