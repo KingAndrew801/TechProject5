@@ -11,8 +11,9 @@ class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column('Title', db.String())
     date = db.Column('Date', db.DateTime, default=datetime.datetime.now)
-    description = db.Column('Description', db.Text())
+    desc = db.Column('Description', db.Text())
     skills = db.Column('Skills', db.String())
+    github = db.Column("Git", db.String())
 
 
     def __repr__(self):
