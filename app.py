@@ -1,5 +1,6 @@
 from flask import render_template, url_for, redirect, request
 from models import app, db, Project
+from datetime import datetime
 
 @app.route("/")
 def index():
@@ -13,11 +14,10 @@ def about():
 @app.route('/new', methods =['GET', 'POST'])
 def addproj():
     if request.form:
-        proj = Project(id = request.form['id'],
-                       title=request.form['title'],
-                       date=request.form['date'],
-                       desc=request.form['description'],
-                       skills=request.form['skills-list'],
+        proj = Project(title=request.form['title'],
+                       date=datetime.strptime(request.form['date'] + '-01','%Y-%m-%d'),
+                       desc=request.form['desc'],
+                       skills=request.form['skills'],
                        github=request.form['github'])
         db.session.add(proj)
         db.session.commit()
@@ -28,6 +28,18 @@ def addproj():
 def editproj(id):
     proj = db.session.get(id)
     return render_template('editproj.html', proj = proj)
+
+@app.route('/detail/<id>')
+def detail(id):
+    proj = Project.query.get(id)
+    return render_template('detail.html', proj = proj)
+
+@app.route('/delete/<id>')
+def delete(id):
+    proj = Project.query.get(id)
+    db.session.delete(proj)
+    db.session.commit()
+    return redirect(url_for('index'))
 
 if __name__ == "__main__":
     with app.app_context():
