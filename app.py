@@ -32,6 +32,7 @@ def editproj(id):
 @app.route('/detail/<id>')
 def detail(id):
     proj = Project.query.get(id)
+    jects = Project.query.all()
     return render_template('detail.html', proj = proj)
 
 @app.route('/delete/<id>')
