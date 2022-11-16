@@ -26,21 +26,25 @@ def addproj():
 
 @app.route('/edit/<id>', methods = ['POST'])
 def editproj(id):
-    proj = db.session.get(id)
+    proj = db.session.get_or_404(id)
     return render_template('editproj.html', proj = proj)
 
 @app.route('/detail/<id>')
 def detail(id):
-    proj = Project.query.get(id)
+    proj = Project.query.get_or_404(id)
     jects = Project.query.all()
     return render_template('detail.html', proj = proj)
 
 @app.route('/delete/<id>')
 def delete(id):
-    proj = Project.query.get(id)
+    proj = Project.query.get_or_404(id)
     db.session.delete(proj)
     db.session.commit()
     return redirect(url_for('index'))
+
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('404.html', msg=error), 404
 
 if __name__ == "__main__":
     with app.app_context():
