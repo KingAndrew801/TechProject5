@@ -26,7 +26,7 @@ def addproj():
 
 @app.route('/edit/<id>', methods=['GET', 'POST'])
 def editproj(id):
-    proj = db.session.get(id)
+    proj = Project.query.get(id)
     if request.form:
         proj.title = request.form['title']
         proj.date = datetime.strptime(request.form['date'] + '-01', '%Y-%m-%d')
