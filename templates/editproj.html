@@ -1,9 +1,9 @@
 {% extends 'layout2.html' %}
 {% block deetz %}
-    <h1>New Project</h1>
+    <h1>Edit Project</h1>
 </section>
 <section id="form">
-    <form action="">
+    <form action="{{ url_for('editproj', id=proj.id)}}" method="POST">
         <label for="title">Project Title</label>
         <input type="text" name="title" id="title" placeholder="Project Name" required value ={{proj.titel}}>
         <label for="date">Completion Date</label>

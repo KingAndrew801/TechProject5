@@ -24,16 +24,25 @@ def addproj():
         return redirect(url_for('index'))
     return render_template('projectform.html')
 
-@app.route('/edit/<id>', methods = ['POST'])
+@app.route('/edit/<id>', methods=['GET', 'POST'])
 def editproj(id):
-    proj = db.session.get_or_404(id)
-    return render_template('editproj.html', proj = proj)
+    proj = db.session.get(id)
+    if request.form:
+        proj.title = request.form['title']
+        proj.date = datetime.strptime(request.form['date'] + '-01', '%Y-%m-%d')
+        proj.desc = request.form['desc']
+        proj.skills = request.form['skills']
+        proj.github = request.form['github']
+        db.session.commit()
+        return redirect( url_for('index'))
+    jects = Project.query.all()
+    return render_template('editproj.html', proj = proj, jects=jects)
 
 @app.route('/detail/<id>')
 def detail(id):
     proj = Project.query.get_or_404(id)
     jects = Project.query.all()
-    return render_template('detail.html', proj = proj)
+    return render_template('detail.html', proj = proj, jects=jects)
 
 @app.route('/delete/<id>')
 def delete(id):
