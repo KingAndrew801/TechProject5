@@ -31,8 +31,10 @@
             <div id="project-list">
 {% for project in proj %}
                 <div id="{{project.id}}" class="a-project">
+                    <a href='{{url_for("detail", id=project.id)}}'>
                     <h3>{{project.title}}</h3>
-                    <a href="{{project.gitloc}}" class="github-btn">
+                    </a>
+                    <a href="{{project.github}}" class="github-btn">
                         <i class="fab fa-github"></i>
                         View on GitHub
                     </a>
@@ -49,10 +51,11 @@
             <h2>Contact Me</h2>
             <p>
                 Phone: (801) 680-5784
-                Email: ArMcDonald801@gmail.com
             </p>
+
             <p>
                 <i class="fas fa-envelope"></i>
                 ArMcDonald801@email.com
             </p>
         {% endblock %}
+
