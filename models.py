@@ -7,6 +7,7 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///projects.db"
 db = SQLAlchemy(app)
 
+
 class Project(db.Model):
     id = db.Column('Id', db.Integer, primary_key=True)
     title = db.Column('Title', db.String())
@@ -15,8 +16,6 @@ class Project(db.Model):
     skills = db.Column('Skills', db.String())
     github = db.Column("Git", db.String())
 
-
     def __repr__(self):
         return f'''Project: {self.title}
-                Skills: {self.skills}
-                '''
+                Skills: {self.skills}'''

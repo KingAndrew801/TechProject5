@@ -1,8 +1,9 @@
 {% extends 'layout2.html' %}
 {% block deetz %}
+
     <h1>{{proj.title}}</h1>
     <p>{{proj.date}}</p>
-    <a href="{{proj.gitloc}}" class="github-btn">
+    <a href="{{proj.github}}" class="github-btn">
         <i class="fab fa-github"></i>
         View on GitHub
     </a>
@@ -31,4 +32,5 @@
         <i class="far fa-trash-alt"></i>
         Delete
     </a>
+
 {% endblock %}
