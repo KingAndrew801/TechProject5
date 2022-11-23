@@ -7,9 +7,9 @@
     <form action="{{ url_for('editproj', id=proj.id)}}" method="POST">
         <p>{{ptime}} wtf</p>
         <label for="title">Project Title</label>
-        <input type="text" name="title" id="title" placeholder="Project Name" required value ={{proj.title}}>
+        <input type="text" name="title" id="title" placeholder="Project Name" required value ="{{proj.title}}">
         <label for="date">Completion Date</label>
-        <input type="month" name="date" id="date" placeholder="Enter Date" required value ={{ptime}}>
+        <input type="month" name="date" id="date" placeholder="Enter Date" required value ={{datetime.strftime(proj.date,'%Y-%m')}}>
         <label for="description">Description</label>
         <textarea name="desc" id="description" cols="30" rows="20" placeholder="Description" required>{{proj.desc}}</textarea>
         <label for="skills-list" id="skills-label">Skills</label>
