@@ -4,8 +4,8 @@ from datetime import datetime
 
 @app.route("/")
 def index():
-    proj = Project.query.all()
-    return render_template('index.html', proj = proj)
+    jects = Project.query.all()
+    return render_template('index.html', jects=jects)
 
 @app.route('/about')
 def about():
@@ -50,7 +50,10 @@ def delete(id):
     db.session.delete(proj)
     db.session.commit()
     return redirect(url_for('index'))
-
+@app.route('/skills')
+def skills():
+    jects = Project.query.all()
+    return render_template('skills.html', jets=jects)
 @app.errorhandler(404)
 def not_found(error):
     return render_template('404.html', msg=error), 404
