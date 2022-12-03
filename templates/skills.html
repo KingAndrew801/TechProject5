@@ -3,12 +3,14 @@
 
     <h1>Skills</h1>
 </section>
-
+<section>
 <ul>
-    {% for p in jects %}
-    <p>{{p.skills}}</p>
-    {% endfor %}
 
-</ul>
+{% for p in jects %}
+    <li>{{p.skills}}</li>
+    {% endfor %}
+    </ul>
+</section>
+
 
 {% endblock %}
