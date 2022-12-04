@@ -50,10 +50,18 @@ def delete(id):
     db.session.delete(proj)
     db.session.commit()
     return redirect(url_for('index'))
+
 @app.route('/skills')
 def skills():
     jects = Project.query.all()
-    return render_template('skills.html', jets=jects)
+
+    def skillets():
+        for p in jects:
+            for skill in p.skills.split(', '):
+                yield skill
+
+    return render_template('skills.html',skillets=skillets(), jects=jects)
+
 @app.errorhandler(404)
 def not_found(error):
     return render_template('404.html', msg=error), 404
