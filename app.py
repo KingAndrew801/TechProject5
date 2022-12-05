@@ -68,11 +68,16 @@ def skills():
                 yield skill
     return render_template('skills.html', skillets=skillets(), jects=jects)
 
+
 @app.route('/contact')
 def contact():
     jects = Project.query.all()
     return render_template('contact.html', jects=jects)
 
+@app.route('/resume')
+def resume():
+    jects = Project.query.all()
+    return render_template('resume.html', jects=jects)
 
 @app.errorhandler(404)
 def not_found(error):
