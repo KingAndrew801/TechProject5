@@ -2,16 +2,20 @@ from flask import render_template, url_for, redirect, request
 from models import app, db, Project
 from datetime import datetime
 
+
 @app.route("/")
 def index():
     jects = Project.query.all()
     return render_template('index.html', jects=jects)
 
+
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    jects = Project.query.all()
+    return render_template('about.html', jects=jects)
 
-@app.route('/new', methods =['GET', 'POST'])
+
+@app.route('/projects/new', methods =['GET', 'POST'])
 def addproj():
     if request.form:
         proj = Project(title=request.form['title'],
@@ -24,7 +28,15 @@ def addproj():
         return redirect(url_for('index'))
     return render_template('projectform.html')
 
-@app.route('/edit/<id>', methods=['GET', 'POST'])
+
+@app.route('/projects/<id>')
+def detail(id):
+    proj = Project.query.get_or_404(id)
+    jects = Project.query.all()
+    return render_template('detail.html', proj = proj, jects=jects)
+
+
+@app.route('/projects/<id>/edit', methods=['GET', 'POST'])
 def editproj(id):
     proj = Project.query.get(id)
     if request.form:
@@ -38,33 +50,35 @@ def editproj(id):
     jects = Project.query.all()
     return render_template('editproj.html', proj = proj, jects=jects)
 
-@app.route('/detail/<id>')
-def detail(id):
-    proj = Project.query.get_or_404(id)
-    jects = Project.query.all()
-    return render_template('detail.html', proj = proj, jects=jects)
 
-@app.route('/delete/<id>')
+@app.route('/projects/<id>/delete')
 def delete(id):
     proj = Project.query.get_or_404(id)
     db.session.delete(proj)
     db.session.commit()
     return redirect(url_for('index'))
 
+
 @app.route('/skills')
 def skills():
     jects = Project.query.all()
-
     def skillets():
         for p in jects:
             for skill in p.skills.split(', '):
                 yield skill
+    return render_template('skills.html', skillets=skillets(), jects=jects)
 
-    return render_template('skills.html',skillets=skillets(), jects=jects)
+@app.route('/contact')
+def contact():
+    jects = Project.query.all()
+    return render_template('contact.html', jects=jects)
+
 
 @app.errorhandler(404)
 def not_found(error):
-    return render_template('404.html', msg=error), 404
+    jects = Project.query.all()
+    return render_template('404.html', msg=error, jects=jects), 404
+
 
 if __name__ == "__main__":
     with app.app_context():
