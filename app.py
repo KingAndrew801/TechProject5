@@ -17,6 +17,7 @@ def about():
 
 @app.route('/projects/new', methods =['GET', 'POST'])
 def addproj():
+    jects = Project.query.all()
     if request.form:
         proj = Project(title=request.form['title'],
                        date=datetime.strptime(request.form['date'] + '-01','%Y-%m-%d'),
@@ -26,7 +27,7 @@ def addproj():
         db.session.add(proj)
         db.session.commit()
         return redirect(url_for('index'))
-    return render_template('projectform.html')
+    return render_template('projectform.html', jects=jects)
 
 
 @app.route('/projects/<id>')
