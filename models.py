@@ -7,6 +7,14 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///projects.db"
 db = SQLAlchemy(app)
 
+tree = "Pine"
+season = "winter"
+
+
+def tree_talk(t, s):
+    tree = t
+    season = s
+    print("I love {} trees in {}".format(tree, season))
 
 class Project(db.Model):
     id = db.Column('Id', db.Integer, primary_key=True)
@@ -19,3 +27,9 @@ class Project(db.Model):
     def __repr__(self):
         return f'''Project: {self.title}
                 Skills: {self.skills}'''
+
+
+
+    tree_talk(tree, season)
+    tree_talk("Palm", "summer")
+    tree_talk(tree, season)
